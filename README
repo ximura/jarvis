@@ -1,0 +1,7 @@
+Resources should be saved in next directories:
+.
+├─ bin
+├── resources
+├── img             # folder with all training images
+├── meta            # folder with item metadata
+└─── item.json      # metadata description
