@@ -1,7 +1,6 @@
 #include "FeatureExtractor.h"
-#include <opencv2/imgcodecs.hpp>
 #include <opencv2/features2d.hpp>
-
+#include <opencv2/highgui.hpp>
 
 #include <iostream>
 
@@ -16,16 +15,21 @@ cv::Ptr<cv::Mat> FeatureExtractor::Extract(const char * path)
     }
 
     std::vector<cv::KeyPoint> keypoints_object;
-    cv::Mat descriptors_object;
+    auto& descriptors_object = cv::makePtr<cv::Mat>();
 
-    // Initiate ORB detector
+    // Initiate KAZE detector
     cv::Ptr<cv::FeatureDetector> detector = cv::KAZE::create();
 
-    // find the keypoints and descriptors with ORB
+    // find the keypoints and descriptors with KAZE
     detector->detect(image, keypoints_object);
 
     cv::Ptr<cv::DescriptorExtractor> extractor = cv::KAZE::create();
-    extractor->compute(image, keypoints_object, descriptors_object);
+    extractor->compute(image, keypoints_object, *descriptors_object.get());
 
-    return cv::makePtr<cv::Mat>(descriptors_object);
+    /*cv::Mat outImage;
+    cv::drawKeypoints(image, keypoints_object, outImage);
+    cv::imshow("Display Image", outImage);
+    cv::waitKey(0);*/
+
+    return descriptors_object;
 }

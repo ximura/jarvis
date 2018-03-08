@@ -20,13 +20,19 @@ message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 
 if(CMAKE_VERSION VERSION_LESS "2.8.11")
   # Add OpenCV headers location to your include paths
-  include_directories(${OpenCV_INCLUDE_DIRS})
+  include_directories(${OpenCV_INCLUDE_DIRS}, include)
+else()
+ include_directories(include)
 endif()
 
 set( jarvis_SRC
     source/main.cpp
     source/FeatureExtractor.cpp
     source/FeatureExtractor.h
+    source/ItemRepository.h
+    source/ItemRepository.cpp
+    source/FeaturesRepository.h
+    source/FeaturesRepository.cpp
     source/Utils.h
 )
 
