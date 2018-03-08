@@ -43,8 +43,6 @@ void FeaturesRepository::Import()
         fs["descriptor"] >> descriptor;
         fs.release();
 
-        std::cout << descriptor.rows << std::endl;
-
         m_features.emplace(path.second, descriptor);
     }
 }
